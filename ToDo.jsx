@@ -9,22 +9,24 @@ const TodoApp = () => {
   };
 
   const addTodo = () => {
-    
-      setTodos([...todos, { text: inputValue, checked: false }]);
+    if (inputValue.trim() !== '') {
+      const newTodos = todos.slice();
+      newTodos.splice(newTodos.length, 0, { text: inputValue, checked: false });
+      setTodos(newTodos);
       setInputValue('');
-    
+    }
   };
 
   const deleteTodo = (index) => {
-    const updatedTodos = todos.filter((_, i) => i !== index);
-    setTodos(updatedTodos);
+    const newTodos = todos.slice(); 
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
   };
 
   const toggleChecked = (index) => {
-    const updatedTodos = todos.map((todo, i) =>
-      i === index ? { ...todo, checked: !todo.checked } : todo
-    );
-    setTodos(updatedTodos);
+    const newTodos = todos.slice();
+    newTodos[index] = { ...newTodos[index], checked: !newTodos[index].checked };
+    setTodos(newTodos);
   };
 
   return (
